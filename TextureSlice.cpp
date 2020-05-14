@@ -2,11 +2,19 @@
 #include "main.h"
 
 TextureSlice::TextureSlice(int ID){
+  /**
+   * Texture slice computes all vertex from interaction with cube edges
+   * @param center : center of the cube for 3-D texture
+   */
   std::cout<<"init textureSlice"<<std::endl;
   center = glm::vec3(0.0f,0.0f,0.0f);
 }
 
 void TextureSlice::add(glm::vec3 vertex){
+  /**
+   * store interaction int sliceVertex
+   * @param vertex interaction with edges on cube.
+   */
   sliceVertex.push_back(vertex);
 }
 void TextureSlice::getSortedVertex(std::vector<glm::vec3> &vertices){
@@ -34,6 +42,20 @@ void TextureSlice::getSortedVertex(std::vector<glm::vec3> &vertices){
 }
 
 void TextureSlice::ComputeCenter(){
+  /**
+   * compute center of interaction of a slice sort interaction in counter clock
+   * wise order.
+   * ==========================================================================
+   * example:
+   * p1,p1 and center o
+   *
+   *               p1 *
+   *
+   *             o      p2 *
+   *
+   *     will push in vector in p1->p2->o order
+   * ==========================================================================
+   */
   float centerx = 0.0f;
   float centery = 0.0f;
   float centerz = 0.0f;
@@ -53,6 +75,11 @@ void TextureSlice::ComputeCenter(){
 }
 
 float TextureSlice::Pseudoangle(glm::vec3 p1, glm::vec3 p2){
+  /**
+   * pseudo angle to sort vertex in counter clock wise order
+   * @param p1 center of a slice
+   * @param p2 slice interaction on cube edge
+   */
   glm::vec3 delta = p2 - p1;
    float result;
 
